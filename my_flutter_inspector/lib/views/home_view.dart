@@ -1,11 +1,9 @@
 import 'dart:async';
 
-import 'package:devtools_flutter/domain/my_hotel_list_bloc.dart';
-import 'package:devtools_flutter/models/my_hotels_list.dart';
+import 'package:devtools_flutter/views/my_hotels_listview.dart';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/hotel.dart';
 import 'listview_layout.dart';
 
@@ -20,8 +18,8 @@ class TabItem {
 }
 
 final List<TabItem> _tabBar = [
-  TabItem('Hotel List', Icon(Icons.list_alt_outlined)),
-  TabItem('My hotels', Icon(Icons.home_outlined)),
+  TabItem('Hotel List', const Icon(Icons.list_alt_outlined)),
+  TabItem('My hotels', const Icon(Icons.home_outlined)),
 ];
 
 class HomeView extends StatefulWidget {
@@ -81,72 +79,42 @@ class _HomeViewState extends State<HomeView>
           ),
         ),
       ),
-      body: BlocBuilder<MyHotelListBloc, Map<String, HotelPreview>>(
-          builder: (blocContext, state) {
-        return TabBarView(
-          controller: _tabController,
-          children: [
-            FutureBuilder(
-                future: _hotels,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          FutureBuilder(
+              future: _hotels,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return const Center(child: CircularProgressIndicator());
+                  case ConnectionState.done:
+                    if (snapshot.hasError) {
+                      return Text(_dioError);
+                    } else if (snapshot.hasData) {
+                      return ListView.separated(
+                          itemCount: snapshot.data.length,
+                          separatorBuilder: (BuildContext context, int index) =>
+                              const Divider(
+                                height: 2,
+                                thickness: 1,
+                              ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return ListviewLayout(
+                              hotelInfo: snapshot.data[index],
+                              tabIndex: currentTab,
+                            );
+                          });
+                    } else {
                       return const Center(child: CircularProgressIndicator());
-                    case ConnectionState.done:
-                      if (snapshot.hasError) {
-                        return Text(_dioError);
-                      } else if (snapshot.hasData) {
-                        return ListView.separated(
-                            itemCount: snapshot.data.length,
-                            separatorBuilder:
-                                (BuildContext context, int index) =>
-                                    const Divider(
-                                      height: 2,
-                                      thickness: 1,
-                                    ),
-                            itemBuilder: (BuildContext context, int index) {
-                              return ListviewLayout(
-                                hotelInfo: snapshot.data[index],
-                                tabIndex: currentTab,
-                                blocContext: blocContext,
-                              );
-                            });
-                      } else {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                    default:
-                      return const Center(child: CircularProgressIndicator());
-                  }
-                }),
-            (myHotelsList.isNotEmpty)
-                ? ListView.separated(
-                    itemCount: state.length,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(
-                          height: 2,
-                          thickness: 1,
-                        ),
-                    itemBuilder: (BuildContext itemBuilderContext, int index) {
-                      return ListviewLayout(
-                        hotelInfo: state.values.elementAt(index),
-                        tabIndex: currentTab,
-                        blocContext: blocContext,
-                      );
-                    })
-                //    }
-                // else {
-                //   return
-                : Center(
-                    child: Text(
-                    'Лучше гор могут быть только горы, на которых еще не бывал. Съезди куда-нибудь и возвращайся',
-                    maxLines: 2,
-                  ))
-            //   ;
-            //   }
-            ,
-          ],
-        );
-      }),
+                    }
+                  default:
+                    return const Center(child: CircularProgressIndicator());
+                }
+              }),
+          MyHotelsListview(currentTab),
+        ],
+      ),
       //],                    );
       // });
     );

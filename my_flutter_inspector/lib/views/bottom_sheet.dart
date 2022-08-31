@@ -1,10 +1,11 @@
-import 'package:devtools_flutter/domain/my_hotel_list_bloc.dart';
 import 'package:devtools_flutter/models/hotel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-Widget toggleBottomSheet(
-    BuildContext context, MyHotelEvents event, HotelPreview hotel) {
+import '../domain/my_hotel_list_riverpod.dart';
+
+Widget toggleBottomSheet(BuildContext context, WidgetRef ref,
+    MyHotelEvents event, HotelPreview hotel) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
@@ -13,9 +14,13 @@ Widget toggleBottomSheet(
         leading: const Icon(Icons.person),
         onTap: () {
           if (event == MyHotelEvents.addHotelInList) {
-            context.read<MyHotelListBloc>().addHotelInList(hotel);
+            ref
+                .read<MyHotelList>(myHotelListProvider.notifier)
+                .addHotelInList(hotel);
           } else {
-            context.read<MyHotelListBloc>().removeHotelFromList(hotel);
+            ref
+                .read<MyHotelList>(myHotelListProvider.notifier)
+                .removeHotelFromList(hotel);
           }
           Navigator.of(context).pop();
         },

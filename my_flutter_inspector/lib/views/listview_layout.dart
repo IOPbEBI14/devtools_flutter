@@ -1,34 +1,23 @@
-import 'dart:async';
-
-import 'package:devtools_flutter/domain/my_hotel_list_bloc.dart';
-import 'package:devtools_flutter/models/my_hotels_list.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quantity_input/quantity_input.dart';
 
+import '../domain/my_hotel_list_riverpod.dart';
 import '../models/hotel.dart';
 import 'package:flutter/material.dart';
 
 import 'bottom_sheet.dart';
 
-class ListviewLayout extends StatefulWidget {
+class ListviewLayout extends ConsumerWidget {
   final HotelPreview hotelInfo;
   final int tabIndex;
-  final BuildContext blocContext;
 
   const ListviewLayout(
-      {Key? key,
-      required this.hotelInfo,
-      required this.tabIndex,
-      required this.blocContext})
+      {Key? key, required this.hotelInfo, required this.tabIndex})
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _ListviewLayoutState();
-}
-
-class _ListviewLayoutState extends State<ListviewLayout> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var myHotelsList = ref.watch(myHotelListProvider);
     return SizedBox(
       height: 200,
       child: SizedBox(
@@ -44,7 +33,7 @@ class _ListviewLayoutState extends State<ListviewLayout> {
               children: [
                 Expanded(
                   child: Image.asset(
-                    'assets/images/${widget.hotelInfo.poster}',
+                    'assets/images/${hotelInfo.poster}',
                     fit: BoxFit.scaleDown,
                   ),
                 ),
@@ -53,13 +42,13 @@ class _ListviewLayoutState extends State<ListviewLayout> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          widget.hotelInfo.name,
+                          hotelInfo.name,
                           maxLines: 2,
                           textAlign: TextAlign.center,
                         ),
                         QuantityInput(
                           inputWidth: 30,
-                          value: widget.hotelInfo.rating,
+                          value: hotelInfo.rating,
                           onChanged: (hotelRating) => null,
                           // provider.editHotel(_hotelList[index]
                           //     .copyWith(
@@ -70,37 +59,37 @@ class _ListviewLayoutState extends State<ListviewLayout> {
                         ),
                         TextButton(
                           style: ElevatedButton.styleFrom(
-                            primary:
-                                myHotelsList.containsKey(widget.hotelInfo.uuid)
-                                    ? Colors.red
-                                    : Colors.lightBlue,
+                            primary: myHotelsList.containsKey(hotelInfo.uuid)
+                                ? Colors.red
+                                : Colors.lightBlue,
                             // background
                             onPrimary: Colors.white, // foreground
                           ),
                           onPressed: () {
-                            if (widget.tabIndex == 0 &&
-                                !isBooked(widget.hotelInfo.uuid)) {
+                            if (tabIndex == 0 &&
+                                !myHotelsList.containsKey(hotelInfo.uuid)) {
                               showModalBottomSheet(
                                   context: context,
                                   builder: (_) => toggleBottomSheet(
-                                      widget.blocContext,
+                                      context,
+                                      ref,
                                       MyHotelEvents.addHotelInList,
-                                      widget.hotelInfo));
+                                      hotelInfo));
                             } else {
                               showModalBottomSheet(
                                   context: context,
                                   builder: (_) => toggleBottomSheet(
-                                      widget.blocContext,
+                                      context,
+                                      ref,
                                       MyHotelEvents.removeHotelFromList,
-                                      widget.hotelInfo));
+                                      hotelInfo));
                             }
-                            setState(() {});
                           },
                           child: const Text(
                             'Я здесь был',
                             textAlign: TextAlign.justify,
                           ),
-                        )
+                        ),
                       ]),
                 )
               ],

@@ -26,12 +26,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "bloc",
-      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/bloc-8.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "boolean_selector",
       "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0",
       "packageUri": "lib/",
@@ -176,16 +170,16 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "flutter_bloc",
-      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_bloc-8.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "flutter_lints",
       "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_riverpod",
+      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_riverpod-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
     },
     {
       "name": "flutter_test",
@@ -290,12 +284,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "nested",
-      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/nested-1.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "package_config",
       "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/package_config-2.1.0",
       "packageUri": "lib/",
@@ -320,12 +308,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "provider",
-      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/provider-6.0.3",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "pub_semver",
       "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/pub_semver-2.1.1",
       "packageUri": "lib/",
@@ -342,6 +324,12 @@
       "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/quantity_input-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "riverpod",
+      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/riverpod-1.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
     },
     {
       "name": "shelf",
@@ -382,6 +370,12 @@
     {
       "name": "stack_trace",
       "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.10.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "state_notifier",
+      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/state_notifier-0.7.2+1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -458,7 +452,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-08-22T20:58:10.714860Z",
+  "generated": "2022-08-30T19:04:04.993534Z",
   "generator": "pub",
   "generatorVersion": "2.17.1"
 }
