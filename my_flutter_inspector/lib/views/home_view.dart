@@ -60,63 +60,66 @@ class _HomeViewState extends State<HomeView>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //     bottom:TabBar(controller: _tabController,
-      //         tabs: _tabBar.map((e) => Tab(text:e.title)).toList()
-      //     )
-      // ),
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Container(
-          color: Theme.of(context).backgroundColor,
-          child: SafeArea(
-            child: TabBar(
-              controller: _tabController,
-              tabs: _tabBar.map((e) => Tab(text: e.title)).toList(),
-              onTap: (index) => repaint(index),
+    return GestureDetector(
+      onTap: ()=> FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        // appBar: AppBar(
+        //     bottom:TabBar(controller: _tabController,
+        //         tabs: _tabBar.map((e) => Tab(text:e.title)).toList()
+        //     )
+        // ),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Container(
+            color: Theme.of(context).backgroundColor,
+            child: SafeArea(
+              child: TabBar(
+                controller: _tabController,
+                tabs: _tabBar.map((e) => Tab(text: e.title)).toList(),
+                onTap: (index) => repaint(index),
+              ),
             ),
           ),
         ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          FutureBuilder(
-              future: _hotels,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return const Center(child: CircularProgressIndicator());
-                  case ConnectionState.done:
-                    if (snapshot.hasError) {
-                      return Text(_dioError);
-                    } else if (snapshot.hasData) {
-                      return ListView.separated(
-                          itemCount: snapshot.data.length,
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const Divider(
-                                height: 2,
-                                thickness: 1,
-                              ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return ListviewLayout(
-                              hotelInfo: snapshot.data[index],
-                              tabIndex: currentTab,
-                            );
-                          });
-                    } else {
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            FutureBuilder(
+                future: _hotels,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
                       return const Center(child: CircularProgressIndicator());
-                    }
-                  default:
-                    return const Center(child: CircularProgressIndicator());
-                }
-              }),
-          MyHotelsListview(currentTab),
-        ],
+                    case ConnectionState.done:
+                      if (snapshot.hasError) {
+                        return Text(_dioError);
+                      } else if (snapshot.hasData) {
+                        return ListView.separated(
+                            itemCount: snapshot.data.length,
+                            separatorBuilder: (BuildContext context, int index) =>
+                                const Divider(
+                                  height: 2,
+                                  thickness: 1,
+                                ),
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListviewLayout(
+                                hotelInfo: snapshot.data[index],
+                                tabIndex: currentTab,
+                              );
+                            });
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    default:
+                      return const Center(child: CircularProgressIndicator());
+                  }
+                }),
+            MyHotelsListview(currentTab),
+          ],
+        ),
+        //],                    );
+        // });
       ),
-      //],                    );
-      // });
     );
   }
 
