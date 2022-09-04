@@ -1,6 +1,6 @@
 import 'package:my_performance_view/models/hotel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../domain/my_hotel_list_riverpod.dart';
 

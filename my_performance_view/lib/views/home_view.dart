@@ -63,11 +63,6 @@ class _HomeViewState extends State<HomeView>
     return GestureDetector(
       onTap: ()=> FocusScope.of(context).unfocus(),
       child: Scaffold(
-        // appBar: AppBar(
-        //     bottom:TabBar(controller: _tabController,
-        //         tabs: _tabBar.map((e) => Tab(text:e.title)).toList()
-        //     )
-        // ),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Container(
@@ -117,8 +112,6 @@ class _HomeViewState extends State<HomeView>
             MyHotelsListview(currentTab),
           ],
         ),
-        //],                    );
-        // });
       ),
     );
   }

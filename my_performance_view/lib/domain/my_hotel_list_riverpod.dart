@@ -1,5 +1,5 @@
 import 'package:my_performance_view/models/hotel.dart';
-import 'package:riverpod/riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 enum MyHotelEvents {addHotelInList, removeHotelFromList}
 

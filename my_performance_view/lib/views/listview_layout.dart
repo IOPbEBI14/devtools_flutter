@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quantity_input/quantity_input.dart';
 
 import '../domain/my_hotel_list_riverpod.dart';
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'bottom_sheet.dart';
 
-class ListviewLayout extends ConsumerWidget {
+class ListviewLayout extends HookConsumerWidget {
   final HotelPreview hotelInfo;
   final int tabIndex;
 
@@ -34,6 +34,8 @@ class ListviewLayout extends ConsumerWidget {
                 Expanded(
                   child: Image.asset(
                     'assets/images/${hotelInfo.poster}',
+                    cacheWidth: 615,
+                    cacheHeight: 461,
                     fit: BoxFit.scaleDown,
                   ),
                 ),
@@ -50,11 +52,6 @@ class ListviewLayout extends ConsumerWidget {
                           inputWidth: 30,
                           value: hotelInfo.rating,
                           onChanged: (hotelRating) => null,
-                          // provider.editHotel(_hotelList[index]
-                          //     .copyWith(
-                          //     rating: int.parse(
-                          //         hotelRating.replaceAll(
-                          //             ',', '')))),
                           maxValue: 10,
                         ),
                         TextButton(
