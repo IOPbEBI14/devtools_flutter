@@ -50,11 +50,6 @@ class ListviewLayout extends ConsumerWidget {
                           inputWidth: 30,
                           value: hotelInfo.rating,
                           onChanged: (hotelRating) => null,
-                          // provider.editHotel(_hotelList[index]
-                          //     .copyWith(
-                          //     rating: int.parse(
-                          //         hotelRating.replaceAll(
-                          //             ',', '')))),
                           maxValue: 10,
                         ),
                         TextButton(
@@ -70,19 +65,21 @@ class ListviewLayout extends ConsumerWidget {
                                 !myHotelsList.containsKey(hotelInfo.uuid)) {
                               showModalBottomSheet(
                                   context: context,
-                                  builder: (_) => toggleBottomSheet(
-                                      context,
-                                      ref,
-                                      MyHotelEvents.addHotelInList,
-                                      hotelInfo));
+                                  builder: (_) =>
+                                      toggleBottomSheet(
+                                          context,
+                                          ref,
+                                          MyHotelEvents.addHotelInList,
+                                          hotelInfo));
                             } else {
                               showModalBottomSheet(
                                   context: context,
-                                  builder: (_) => toggleBottomSheet(
-                                      context,
-                                      ref,
-                                      MyHotelEvents.removeHotelFromList,
-                                      hotelInfo));
+                                  builder: (_) =>
+                                      toggleBottomSheet(
+                                          context,
+                                          ref,
+                                          MyHotelEvents.removeHotelFromList,
+                                          hotelInfo));
                             }
                           },
                           child: const Text(

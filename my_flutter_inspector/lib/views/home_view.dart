@@ -59,19 +59,23 @@ class _HomeViewState extends State<HomeView>
   }
 
   @override
+  void initState() {
+    super.initState();
+    getData(_hotelsURL);
+    _tabController = TabController(length: _tabBar.length, vsync: this);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=> FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        // appBar: AppBar(
-        //     bottom:TabBar(controller: _tabController,
-        //         tabs: _tabBar.map((e) => Tab(text:e.title)).toList()
-        //     )
-        // ),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Container(
-            color: Theme.of(context).backgroundColor,
+            color: Theme
+                .of(context)
+                .backgroundColor,
             child: SafeArea(
               child: TabBar(
                 controller: _tabController,
@@ -96,11 +100,12 @@ class _HomeViewState extends State<HomeView>
                       } else if (snapshot.hasData) {
                         return ListView.separated(
                             itemCount: snapshot.data.length,
-                            separatorBuilder: (BuildContext context, int index) =>
-                                const Divider(
-                                  height: 2,
-                                  thickness: 1,
-                                ),
+                            separatorBuilder: (BuildContext context,
+                                int index) =>
+                            const Divider(
+                              height: 2,
+                              thickness: 1,
+                            ),
                             itemBuilder: (BuildContext context, int index) {
                               return ListviewLayout(
                                 hotelInfo: snapshot.data[index],
@@ -117,16 +122,7 @@ class _HomeViewState extends State<HomeView>
             MyHotelsListview(currentTab),
           ],
         ),
-        //],                    );
-        // });
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData(_hotelsURL);
-    _tabController = TabController(length: _tabBar.length, vsync: this);
   }
 }
