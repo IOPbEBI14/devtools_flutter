@@ -1,22 +1,25 @@
-import 'package:devtools_flutter/models/hotel.dart';
-import 'package:riverpod/riverpod.dart';
+import '../models/hotel.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-enum MyHotelEvents {addHotelInList, removeHotelFromList}
+enum MyHotelEvents { addHotelInList, removeHotelFromList }
 
 final myHotelListProvider =
-    StateNotifierProvider<MyHotelList, Map<String, HotelPreview>>(
+    StateNotifierProvider<MyHotelList, List<HotelPreview>>(
         (_) => MyHotelList());
 
-class MyHotelList extends StateNotifier<Map<String, HotelPreview>> {
-  MyHotelList() : super({});
+class MyHotelList extends StateNotifier<List<HotelPreview>> {
+  MyHotelList() : super([]);
 
   void addHotelInList(HotelPreview hotel) {
-    Map<String, HotelPreview> currentList = state;
-    currentList.putIfAbsent(hotel.uuid, () => hotel);
-    state=currentList;
+    state = [...state, hotel];
   }
 
   void removeHotelFromList(HotelPreview hotel) {
-    state.remove(hotel.uuid);
+    for (int i = 0; i < state.length; i++) {
+      if (state[i].uuid == hotel.uuid) {
+        state.removeAt(i);
+        break;
+      }
+    }
   }
 }

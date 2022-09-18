@@ -11,8 +11,7 @@ class ListviewLayout extends HookConsumerWidget {
   final HotelPreview hotelInfo;
   final int tabIndex;
 
-  const ListviewLayout(
-      {Key? key, required this.hotelInfo, required this.tabIndex})
+  const ListviewLayout({Key? key, required this.hotelInfo, required this.tabIndex})
       : super(key: key);
 
   @override
@@ -34,8 +33,8 @@ class ListviewLayout extends HookConsumerWidget {
                 Expanded(
                   child: Image.asset(
                     'assets/images/${hotelInfo.poster}',
-                    cacheWidth: 615,
-                    cacheHeight: 461,
+                   cacheWidth: 615,
+                   cacheHeight: 461,
                     fit: BoxFit.scaleDown,
                   ),
                 ),
@@ -56,7 +55,7 @@ class ListviewLayout extends HookConsumerWidget {
                         ),
                         TextButton(
                           style: ElevatedButton.styleFrom(
-                            primary: myHotelsList.containsKey(hotelInfo.uuid)
+                            primary: myHotelsList.contains(hotelInfo)
                                 ? Colors.red
                                 : Colors.lightBlue,
                             // background
@@ -64,7 +63,7 @@ class ListviewLayout extends HookConsumerWidget {
                           ),
                           onPressed: () {
                             if (tabIndex == 0 &&
-                                !myHotelsList.containsKey(hotelInfo.uuid)) {
+                                !myHotelsList.contains(hotelInfo)) {
                               showModalBottomSheet(
                                   context: context,
                                   builder: (_) => toggleBottomSheet(

@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quantity_input/quantity_input.dart';
 
 import '../domain/my_hotel_list_riverpod.dart';
@@ -7,12 +7,11 @@ import 'package:flutter/material.dart';
 
 import 'bottom_sheet.dart';
 
-class ListviewLayout extends ConsumerWidget {
+class ListviewLayout extends HookConsumerWidget {
   final HotelPreview hotelInfo;
   final int tabIndex;
 
-  const ListviewLayout(
-      {Key? key, required this.hotelInfo, required this.tabIndex})
+  const ListviewLayout({Key? key, required this.hotelInfo, required this.tabIndex})
       : super(key: key);
 
   @override
@@ -54,7 +53,7 @@ class ListviewLayout extends ConsumerWidget {
                         ),
                         TextButton(
                           style: ElevatedButton.styleFrom(
-                            primary: myHotelsList.containsKey(hotelInfo.uuid)
+                            primary: myHotelsList.contains(hotelInfo)
                                 ? Colors.red
                                 : Colors.lightBlue,
                             // background
@@ -62,24 +61,22 @@ class ListviewLayout extends ConsumerWidget {
                           ),
                           onPressed: () {
                             if (tabIndex == 0 &&
-                                !myHotelsList.containsKey(hotelInfo.uuid)) {
+                                !myHotelsList.contains(hotelInfo)) {
                               showModalBottomSheet(
                                   context: context,
-                                  builder: (_) =>
-                                      toggleBottomSheet(
-                                          context,
-                                          ref,
-                                          MyHotelEvents.addHotelInList,
-                                          hotelInfo));
+                                  builder: (_) => toggleBottomSheet(
+                                      context,
+                                      ref,
+                                      MyHotelEvents.addHotelInList,
+                                      hotelInfo));
                             } else {
                               showModalBottomSheet(
                                   context: context,
-                                  builder: (_) =>
-                                      toggleBottomSheet(
-                                          context,
-                                          ref,
-                                          MyHotelEvents.removeHotelFromList,
-                                          hotelInfo));
+                                  builder: (_) => toggleBottomSheet(
+                                      context,
+                                      ref,
+                                      MyHotelEvents.removeHotelFromList,
+                                      hotelInfo));
                             }
                           },
                           child: const Text(

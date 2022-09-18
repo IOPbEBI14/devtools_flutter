@@ -1,17 +1,17 @@
-import 'package:devtools_flutter/domain/my_hotel_list_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../domain/my_hotel_list_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'listview_layout.dart';
 
-class MyHotelsListview extends ConsumerWidget {
+class MyHotelsListview extends HookConsumerWidget {
   final int currentTab;
 
   const MyHotelsListview(this.currentTab, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var myHotelsList = ref.watch(myHotelListProvider);
+    final myHotelsList = ref.watch(myHotelListProvider);
     if (myHotelsList.isNotEmpty) {
       return ListView.separated(
           itemCount: myHotelsList.length,
@@ -21,7 +21,7 @@ class MyHotelsListview extends ConsumerWidget {
               ),
           itemBuilder: (BuildContext itemBuilderContext, int index) {
             return ListviewLayout(
-              hotelInfo: myHotelsList.values.elementAt(index),
+              hotelInfo: myHotelsList[index],
               tabIndex: currentTab,
             );
           });

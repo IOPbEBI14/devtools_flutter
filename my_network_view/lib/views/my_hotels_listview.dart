@@ -11,7 +11,7 @@ class MyHotelsListview extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var myHotelsList = ref.watch(myHotelListProvider);
+    final myHotelsList = ref.watch(myHotelListProvider);
     if (myHotelsList.isNotEmpty) {
       return ListView.separated(
           itemCount: myHotelsList.length,

@@ -170,6 +170,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_hooks",
+      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_hooks-0.18.5+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4",
       "packageUri": "lib/",
@@ -204,6 +210,12 @@
       "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/graphs-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "hooks_riverpod",
+      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/hooks_riverpod-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
     },
     {
       "name": "http_multi_server",
@@ -452,7 +464,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-08-30T19:04:04.993534Z",
+  "generated": "2022-09-16T21:05:07.976433Z",
   "generator": "pub",
   "generatorVersion": "2.17.1"
 }

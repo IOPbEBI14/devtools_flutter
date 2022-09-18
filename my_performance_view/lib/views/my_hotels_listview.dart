@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_performance_view/domain/my_hotel_list_riverpod.dart';
+import '../domain/my_hotel_list_riverpod.dart';
 import 'package:flutter/material.dart';
 
 import 'listview_layout.dart';
@@ -11,7 +11,7 @@ class MyHotelsListview extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var myHotelsList = ref.watch(myHotelListProvider);
+    final myHotelsList = ref.watch(myHotelListProvider);
     if (myHotelsList.isNotEmpty) {
       return ListView.separated(
           itemCount: myHotelsList.length,
@@ -21,7 +21,7 @@ class MyHotelsListview extends HookConsumerWidget {
               ),
           itemBuilder: (BuildContext itemBuilderContext, int index) {
             return ListviewLayout(
-              hotelInfo: myHotelsList.values.elementAt(index),
+              hotelInfo: myHotelsList[index],
               tabIndex: currentTab,
             );
           });
